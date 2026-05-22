@@ -470,18 +470,18 @@ class ArchivePage(QWidget):
                     raw_items.append(item)
                 
                 # Сортируем: сначала родители, потом дети строго под своим родителем
-                parents = [i for i in raw_items if i["_parent_product_id"] is None]
-                children = [i for i in raw_items if i["_parent_product_id"] is not None]
+                parents_list = [i for i in raw_items if i["_parent_product_id"] is None]
+                children_list = [i for i in raw_items if i["_parent_product_id"] is not None]
                 
                 # Составляем список: родитель -> его дети -> следующий родитель -> его дети
                 children_by_parent = {}
-                for child in children:
+                for child in children_list:
                     pid = child["_parent_product_id"]
                     if pid not in children_by_parent:
                         children_by_parent[pid] = []
                     children_by_parent[pid].append(child)
                 
-                for parent in parents:
+                for parent in parents_list:
                     # Удаляем временное поле из финальных данных
                     final_item = {k: v for k, v in parent.items() if not k.startswith("_")}
                     data.append(final_item)
