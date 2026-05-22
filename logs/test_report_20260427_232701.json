@@ -1,0 +1,236 @@
+[
+  {
+    "name": "Структура: src",
+    "passed": true,
+    "msg": "Папка найдена",
+    "time": "23:27:00"
+  },
+  {
+    "name": "Структура: src/core",
+    "passed": true,
+    "msg": "Папка найдена",
+    "time": "23:27:00"
+  },
+  {
+    "name": "Структура: src/database",
+    "passed": true,
+    "msg": "Папка найдена",
+    "time": "23:27:00"
+  },
+  {
+    "name": "Структура: src/modules",
+    "passed": true,
+    "msg": "Папка найдена",
+    "time": "23:27:00"
+  },
+  {
+    "name": "Структура: src/ui",
+    "passed": true,
+    "msg": "Папка найдена",
+    "time": "23:27:00"
+  },
+  {
+    "name": "Структура: data",
+    "passed": true,
+    "msg": "Папка найдена",
+    "time": "23:27:00"
+  },
+  {
+    "name": "Структура: logs",
+    "passed": true,
+    "msg": "Папка найдена",
+    "time": "23:27:00"
+  },
+  {
+    "name": "Структура: config",
+    "passed": true,
+    "msg": "Папка найдена",
+    "time": "23:27:00"
+  },
+  {
+    "name": "Структура: pyproject.toml",
+    "passed": true,
+    "msg": "Файл найдена",
+    "time": "23:27:00"
+  },
+  {
+    "name": "Структура: .env",
+    "passed": true,
+    "msg": "Файл найдена",
+    "time": "23:27:00"
+  },
+  {
+    "name": "Структура: src/main.py",
+    "passed": true,
+    "msg": "Файл найдена",
+    "time": "23:27:00"
+  },
+  {
+    "name": "Структура: src/database/engine.py",
+    "passed": true,
+    "msg": "Файл найдена",
+    "time": "23:27:00"
+  },
+  {
+    "name": "Структура: src/database/models.py",
+    "passed": true,
+    "msg": "Файл найдена",
+    "time": "23:27:00"
+  },
+  {
+    "name": "Структура: src/database/supplier_crud.py",
+    "passed": true,
+    "msg": "Файл найдена",
+    "time": "23:27:00"
+  },
+  {
+    "name": "Структура: src/ui/main_window.py",
+    "passed": true,
+    "msg": "Файл найдена",
+    "time": "23:27:00"
+  },
+  {
+    "name": "Структура: src/ui/pages/suppliers_page.py",
+    "passed": true,
+    "msg": "Файл найдена",
+    "time": "23:27:00"
+  },
+  {
+    "name": "Структура: src/ui/styles/dark_theme.qss",
+    "passed": true,
+    "msg": "Файл найдена",
+    "time": "23:27:00"
+  },
+  {
+    "name": "Зависимость: sqlalchemy",
+    "passed": true,
+    "msg": "Установлен",
+    "time": "23:27:00"
+  },
+  {
+    "name": "Зависимость: sqlcipher3",
+    "passed": true,
+    "msg": "Установлен",
+    "time": "23:27:00"
+  },
+  {
+    "name": "Зависимость: pyside6",
+    "passed": true,
+    "msg": "Установлен",
+    "time": "23:27:00"
+  },
+  {
+    "name": "Зависимость: pandas",
+    "passed": true,
+    "msg": "Установлен",
+    "time": "23:27:00"
+  },
+  {
+    "name": "Зависимость: openpyxl",
+    "passed": true,
+    "msg": "Установлен",
+    "time": "23:27:00"
+  },
+  {
+    "name": "Зависимость: pydantic",
+    "passed": true,
+    "msg": "Установлен",
+    "time": "23:27:00"
+  },
+  {
+    "name": "Зависимость: pydantic-settings",
+    "passed": true,
+    "msg": "Установлен",
+    "time": "23:27:00"
+  },
+  {
+    "name": "Зависимость: python-dotenv",
+    "passed": true,
+    "msg": "Установлен",
+    "time": "23:27:00"
+  },
+  {
+    "name": "Зависимость: aiohttp",
+    "passed": true,
+    "msg": "Установлен",
+    "time": "23:27:00"
+  },
+  {
+    "name": "Зависимость: beautifulsoup4",
+    "passed": true,
+    "msg": "Установлен",
+    "time": "23:27:00"
+  },
+  {
+    "name": "Зависимость: lxml",
+    "passed": true,
+    "msg": "Установлен",
+    "time": "23:27:00"
+  },
+  {
+    "name": "Зависимость: tenacity",
+    "passed": true,
+    "msg": "Установлен",
+    "time": "23:27:00"
+  },
+  {
+    "name": "Зависимость: tqdm",
+    "passed": true,
+    "msg": "Установлен",
+    "time": "23:27:00"
+  },
+  {
+    "name": "Зависимость: structlog",
+    "passed": true,
+    "msg": "Установлен",
+    "time": "23:27:00"
+  },
+  {
+    "name": "SQLCipher: Шифрование",
+    "passed": true,
+    "msg": "Файл зашифрован, чтение без ключа заблокировано",
+    "time": "23:27:00"
+  },
+  {
+    "name": "SQLCipher: Общая проверка",
+    "passed": false,
+    "msg": "Ошибка: [WinError 32] Процесс не может получить доступ к файлу, так как этот файл занят другим процессом: 'D:\\\\Projects\\\\MEEYG 1.0\\\\data\\\\_test_cipher.db'",
+    "time": "23:27:00"
+  },
+  {
+    "name": "Модель: Поля Supplier",
+    "passed": true,
+    "msg": "Присутствуют все поля",
+    "time": "23:27:01"
+  },
+  {
+    "name": "Модель: Уникальность name/base_url",
+    "passed": true,
+    "msg": "unique=True применено",
+    "time": "23:27:01"
+  },
+  {
+    "name": "CRUD: Импорт модуля",
+    "passed": true,
+    "msg": "Модуль доступен",
+    "time": "23:27:01"
+  },
+  {
+    "name": "CRUD: Логика",
+    "passed": false,
+    "msg": "cannot import name 'get_engine' from 'database.engine' (D:\\Projects\\MEEYG 1.0\\src\\database\\engine.py)",
+    "time": "23:27:01"
+  },
+  {
+    "name": "UI: Тема QSS",
+    "passed": true,
+    "msg": "Валидный QSS (7782 символов)",
+    "time": "23:27:01"
+  },
+  {
+    "name": "Интеграция: Связь UI-DB",
+    "passed": true,
+    "msg": "Импорты и вызовы CRUD найдены",
+    "time": "23:27:01"
+  }
+]

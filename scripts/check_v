@@ -1,0 +1,69 @@
+"""Debug: check if vlagostoykie-dveri page has product links."""
+import asyncio
+from playwright.async_api import async_playwright
+from urllib.parse import urljoin, urlparse
+
+async def check():
+    url = "https://tandoor.ru/catalog/mezhkomnatnye-dveri/po-pokrytiyu/vlagostoykie-dveri/"
+    print(f"Testing: {url}")
+    
+    async with async_playwright() as p:
+        browser = await p.chromium.launch(headless=True)
+        page = await browser.new_page()
+        try:
+            await page.goto(url, wait_until="networkidle", timeout=30000)
+            
+            links_data = await page.evaluate("""() => {
+                const result = [];
+                for (const a of document.querySelectorAll('a[href]')) {
+                    const href = a.getAttribute('href');
+                    if (href && href.startsWith('/catalog/')) {
+                        const full = new URL(href, window.location.origin).href;
+                        result.push({href, full, text: a.innerText.trim().substring(0, 60)});
+                    }
+                }
+                return result;
+            }""")
+            
+            # Check for /catalog/product/
+            product_links = [l for l in links_data if '/catalog/product/' in l['full']]
+            print(f"\nLinks with /catalog/product/: {len(product_links)}")
+            for l in product_links[:5]:
+                print(f"  {l['full']}")
+                print(f"  text: {l['text']}")
+                print()
+            
+            # Check deeper links
+            curr_path = "/catalog/mezhkomnatnye-dveri/po-pokrytiyu/vlagostoykie-dveri"
+            deeper = [l for l in links_data if l['full'].startswith(curr_path + '/') and '/catalog/product/' not in l['full']]
+            print(f"\nLinks deeper than current (subcategories): {len(deeper)}")
+            for d in deeper[:15]:
+                print(f"  {d['full']}")
+                print(f"  text: {d['text']}")
+                print()
+            
+            if not product_links and not deeper:
+                print("\n>>> This is a leaf category with NO products found!")
+                
+                # Check title
+                title = await page.title()
+                print(f"Page title: {title}")
+                
+                h1 = await page.evaluate("document.querySelector('h1')?.innerText || 'NOT FOUND'")
+                print(f"H1: {h1}")
+                
+                # Save HTML dump
+                html = await page.content()
+                with open("scripts/vlagostoykie_dump.html", "w", encoding="utf-8") as f:
+                    f.write(html)
+                print(f"Saved {len(html)} bytes")
+            
+        except Exception as e:
+            import traceback
+            print(f"Error: {e}")
+            traceback.print_exc()
+        finally:
+            await browser.close()
+
+if __name__ == "__main__":
+    asyncio.run(check())

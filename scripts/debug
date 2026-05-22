@@ -1,0 +1,78 @@
+"""Debug: check subcategory page for actual products."""
+import asyncio
+from playwright.async_api import async_playwright
+from urllib.parse import urljoin, urlparse
+
+async def check():
+    # The current category has subcategories at depth 5. Let's check one subcategory.
+    sub_url = "https://tandoor.ru/catalog/mezhkomnatnye-dveri/po-pokrytiyu/dveri-iz-massiva/massiv-berezy/"
+    
+    print(f"Testing subcategory: {sub_url}")
+    
+    async with async_playwright() as p:
+        browser = await p.chromium.launch(headless=True)
+        page = await browser.new_page()
+        try:
+            await page.goto(sub_url, wait_until="networkidle", timeout=30000)
+            
+            # Get all links
+            links_data = await page.evaluate("""() => {
+                const result = [];
+                for (const a of document.querySelectorAll('a[href]')) {
+                    const href = a.getAttribute('href');
+                    if (href && (href.startsWith('/catalog/') || href.includes('product') || href.includes('door') || href.includes('dver'))) {
+                        result.push({
+                            href: new URL(href, window.location.origin).href,
+                            attr: href,
+                            text: a.innerText.trim().substring(0, 60)
+                        });
+                    }
+                }
+                return result;
+            }""")
+            
+            # Check for /catalog/product/ pattern
+            product_links = [l for l in links_data if '/catalog/product/' in l['href']]
+            print(f"\nLinks with /catalog/product/: {len(product_links)}")
+            for l in product_links[:10]:
+                print(f"  {l['href']}")
+                print(f"  text: {l['text']}")
+                print()
+            
+            # Group by depth
+            all_links = [l['href'] for l in links_data]
+            depth_groups = {}
+            for href in all_links:
+                path = urlparse(href).path.rstrip('/')
+                depth = len([s for s in path.split('/') if s])
+                if depth not in depth_groups:
+                    depth_groups[depth] = []
+                depth_groups[depth].append(href)
+            
+            for depth in sorted(depth_groups.keys()):
+                print(f"\nDepth {depth}: {len(depth_groups[depth])} links")
+                for link in depth_groups[depth][:3]:
+                    print(f"  {link}")
+            
+            # Page title
+            title = await page.title()
+            print(f"\nPage title: {title}")
+            
+            h1 = await page.evaluate("document.querySelector('h1')?.innerText || 'NOT FOUND'")
+            print(f"H1: {h1}")
+            
+            # Save HTML
+            html = await page.content()
+            with open("scripts/subcategory_dump.html", "w", encoding="utf-8") as f:
+                f.write(html)
+            print(f"\nSaved {len(html)} bytes to scripts/subcategory_dump.html")
+            
+        except Exception as e:
+            import traceback
+            print(f"Error: {e}")
+            traceback.print_exc()
+        finally:
+            await browser.close()
+
+if __name__ == "__main__":
+    asyncio.run(check())

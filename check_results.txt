@@ -1,0 +1,34 @@
+MEEYG Project Health Check Results
+==================================================
+[OK] Config: MEEYG v1.0.0
+[OK] Config: MEEYG v1.0.0
+[OK] Logger: structlog initialized
+[OK] Models: Base declarative ready
+[OK] Engine: SQLite + sqlcipher engine created
+[OK] Session: SessionFactory works
+[OK] All DB Models: Supplier, Category, Product, ProductAttribute, ArchiveSnapshot, ArchiveItem, MappingTemplate
+[OK] MainWindow: QMainWindow subclass ready
+[OK] PlaceholderPage: Placeholder widget ready
+[OK] ArchivePage: Archive widget ready
+[OK] DiscoveryPage: Discovery widget ready
+[OK] ExportPage: Export widget ready
+[OK] ParsingPage: Parsing widget ready
+[OK] SuppliersPage: Suppliers widget ready
+[OK] BaseParser: Abstract parser base class ready
+[OK] ParserEngine: Parser engine ready
+[OK] dark_theme.qss: exists
+[OK] data directory: exists
+[OK] logs directory: exists
+[OK] .env file: exists
+[OK] Python version: 3.14.4 (tags/v3.14.4:23116f9, Apr  7 2026, 14:10:54) [MSC v.1944 64 bit (AMD64)]
+[OK] SQLAlchemy: 2.0.49
+[OK] PySide6: 6.11.0
+[OK] Pydantic: 2.13.3
+[OK] Playwright: installed (version check N/A)
+[OK] aiohttp: 3.13.5
+[OK] BeautifulSoup4: 4.14.3
+
+==================================================
+RESULTS: 27/27 passed, 0 failed
+
+[SUCCESS] All checks passed! Project is ready to run.

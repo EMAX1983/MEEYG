@@ -1,0 +1,437 @@
+{
+  "timestamp": "2026-04-27T22:37:38.450674",
+  "results": [
+    {
+      "name": "Папка: Исходный код",
+      "passed": true,
+      "message": "src существует",
+      "error": null,
+      "timestamp": "22:37:34"
+    },
+    {
+      "name": "Папка: Ядро приложения",
+      "passed": true,
+      "message": "src/core существует",
+      "error": null,
+      "timestamp": "22:37:34"
+    },
+    {
+      "name": "Папка: Работа с БД",
+      "passed": true,
+      "message": "src/database существует",
+      "error": null,
+      "timestamp": "22:37:34"
+    },
+    {
+      "name": "Папка: Бизнес-модули",
+      "passed": true,
+      "message": "src/modules существует",
+      "error": null,
+      "timestamp": "22:37:34"
+    },
+    {
+      "name": "Папка: Пользовательский интерфейс",
+      "passed": true,
+      "message": "src/ui существует",
+      "error": null,
+      "timestamp": "22:37:34"
+    },
+    {
+      "name": "Папка: Данные (БД, экспорты)",
+      "passed": true,
+      "message": "data существует",
+      "error": null,
+      "timestamp": "22:37:34"
+    },
+    {
+      "name": "Папка: Лог-файлы",
+      "passed": true,
+      "message": "logs существует",
+      "error": null,
+      "timestamp": "22:37:34"
+    },
+    {
+      "name": "Папка: Конфигурации",
+      "passed": true,
+      "message": "config существует",
+      "error": null,
+      "timestamp": "22:37:34"
+    },
+    {
+      "name": "Файл: Конфигурация зависимостей",
+      "passed": true,
+      "message": "pyproject.toml найден",
+      "error": null,
+      "timestamp": "22:37:34"
+    },
+    {
+      "name": "Файл: Скрипт настройки окружения",
+      "passed": true,
+      "message": "setup_env.py найден",
+      "error": null,
+      "timestamp": "22:37:34"
+    },
+    {
+      "name": "Файл: Переменные окружения",
+      "passed": true,
+      "message": ".env найден",
+      "error": null,
+      "timestamp": "22:37:34"
+    },
+    {
+      "name": "Файл: Пакет src",
+      "passed": true,
+      "message": "src/__init__.py найден",
+      "error": null,
+      "timestamp": "22:37:34"
+    },
+    {
+      "name": "Файл: Точка входа",
+      "passed": true,
+      "message": "src/main.py найден",
+      "error": null,
+      "timestamp": "22:37:34"
+    },
+    {
+      "name": "Файл: Конфигурация приложения",
+      "passed": true,
+      "message": "src/core/config.py найден",
+      "error": null,
+      "timestamp": "22:37:34"
+    },
+    {
+      "name": "Файл: Система логирования",
+      "passed": true,
+      "message": "src/core/logger.py найден",
+      "error": null,
+      "timestamp": "22:37:34"
+    },
+    {
+      "name": "Файл: Движок БД",
+      "passed": true,
+      "message": "src/database/engine.py найден",
+      "error": null,
+      "timestamp": "22:37:34"
+    },
+    {
+      "name": "Файл: ORM-модели",
+      "passed": true,
+      "message": "src/database/models.py найден",
+      "error": null,
+      "timestamp": "22:37:34"
+    },
+    {
+      "name": "Файл: Управление сессиями",
+      "passed": true,
+      "message": "src/database/session.py найден",
+      "error": null,
+      "timestamp": "22:37:34"
+    },
+    {
+      "name": "Файл: CRUD для поставщиков",
+      "passed": true,
+      "message": "src/database/supplier_crud.py найден",
+      "error": null,
+      "timestamp": "22:37:34"
+    },
+    {
+      "name": "Файл: Главное окно",
+      "passed": true,
+      "message": "src/ui/main_window.py найден",
+      "error": null,
+      "timestamp": "22:37:34"
+    },
+    {
+      "name": "Файл: Страница поставщиков",
+      "passed": true,
+      "message": "src/ui/pages/suppliers_page.py найден",
+      "error": null,
+      "timestamp": "22:37:34"
+    },
+    {
+      "name": "Файл: Тёмная тема",
+      "passed": true,
+      "message": "src/ui/styles/dark_theme.qss найден",
+      "error": null,
+      "timestamp": "22:37:34"
+    },
+    {
+      "name": "Зависимость: sqlalchemy",
+      "passed": true,
+      "message": "Установлен и импортируется",
+      "error": null,
+      "timestamp": "22:37:34"
+    },
+    {
+      "name": "Зависимость: sqlcipher3",
+      "passed": true,
+      "message": "Установлен и импортируется",
+      "error": null,
+      "timestamp": "22:37:34"
+    },
+    {
+      "name": "Зависимость: pyside6",
+      "passed": true,
+      "message": "Установлен и импортируется",
+      "error": null,
+      "timestamp": "22:37:34"
+    },
+    {
+      "name": "Зависимость: pandas",
+      "passed": true,
+      "message": "Установлен и импортируется",
+      "error": null,
+      "timestamp": "22:37:35"
+    },
+    {
+      "name": "Зависимость: openpyxl",
+      "passed": true,
+      "message": "Установлен и импортируется",
+      "error": null,
+      "timestamp": "22:37:36"
+    },
+    {
+      "name": "Зависимость: pydantic",
+      "passed": true,
+      "message": "Установлен и импортируется",
+      "error": null,
+      "timestamp": "22:37:36"
+    },
+    {
+      "name": "Зависимость: pydantic-settings",
+      "passed": true,
+      "message": "Установлен и импортируется",
+      "error": null,
+      "timestamp": "22:37:36"
+    },
+    {
+      "name": "Зависимость: python-dotenv",
+      "passed": true,
+      "message": "Установлен и импортируется",
+      "error": null,
+      "timestamp": "22:37:36"
+    },
+    {
+      "name": "Зависимость: aiohttp",
+      "passed": true,
+      "message": "Установлен и импортируется",
+      "error": null,
+      "timestamp": "22:37:36"
+    },
+    {
+      "name": "Зависимость: beautifulsoup4",
+      "passed": true,
+      "message": "Установлен и импортируется",
+      "error": null,
+      "timestamp": "22:37:36"
+    },
+    {
+      "name": "Зависимость: lxml",
+      "passed": true,
+      "message": "Установлен и импортируется",
+      "error": null,
+      "timestamp": "22:37:36"
+    },
+    {
+      "name": "Зависимость: tenacity",
+      "passed": true,
+      "message": "Установлен и импортируется",
+      "error": null,
+      "timestamp": "22:37:36"
+    },
+    {
+      "name": "Зависимость: tqdm",
+      "passed": true,
+      "message": "Установлен и импортируется",
+      "error": null,
+      "timestamp": "22:37:36"
+    },
+    {
+      "name": "Зависимость: structlog",
+      "passed": true,
+      "message": "Установлен и импортируется",
+      "error": null,
+      "timestamp": "22:37:37"
+    },
+    {
+      "name": "БД: Ключ шифрования",
+      "passed": true,
+      "message": "DB_KEY найден и имеет достаточную длину",
+      "error": null,
+      "timestamp": "22:37:37"
+    },
+    {
+      "name": "Импорт: Движок БД",
+      "passed": true,
+      "message": "Модуль database.engine импортирован",
+      "error": null,
+      "timestamp": "22:37:37"
+    },
+    {
+      "name": "Импорт: ORM-модели",
+      "passed": true,
+      "message": "Модуль database.models импортирован",
+      "error": null,
+      "timestamp": "22:37:37"
+    },
+    {
+      "name": "Импорт: Сессии БД",
+      "passed": true,
+      "message": "Модуль database.session импортирован",
+      "error": null,
+      "timestamp": "22:37:37"
+    },
+    {
+      "name": "БД: Шифрование SQLCipher",
+      "passed": true,
+      "message": "Файл зашифрован, чтение без ключа заблокировано",
+      "error": null,
+      "timestamp": "22:37:37"
+    },
+    {
+      "name": "Модель: Класс Supplier",
+      "passed": true,
+      "message": "Класс определён корректно",
+      "error": null,
+      "timestamp": "22:37:37"
+    },
+    {
+      "name": "Модель: Обязательные поля",
+      "passed": true,
+      "message": "Все поля присутствуют: id, name, base_url, is_active, created_at, updated_at",
+      "error": null,
+      "timestamp": "22:37:37"
+    },
+    {
+      "name": "Модель: Валидация",
+      "passed": false,
+      "message": "Ошибка проверки модели",
+      "error": "Boolean value of this clause is not defined",
+      "timestamp": "22:37:37"
+    },
+    {
+      "name": "CRUD: Create",
+      "passed": true,
+      "message": "Создан поставщик ID=1",
+      "error": null,
+      "timestamp": "22:37:38"
+    },
+    {
+      "name": "CRUD: Read All",
+      "passed": true,
+      "message": "Поставщик найден в списке (1 всего)",
+      "error": null,
+      "timestamp": "22:37:38"
+    },
+    {
+      "name": "CRUD: Read By ID",
+      "passed": true,
+      "message": "Найден по ID: Test Supplier Alpha",
+      "error": null,
+      "timestamp": "22:37:38"
+    },
+    {
+      "name": "CRUD: Update",
+      "passed": true,
+      "message": "Данные обновлены: Updated Test Supplier",
+      "error": null,
+      "timestamp": "22:37:38"
+    },
+    {
+      "name": "CRUD: Delete (soft)",
+      "passed": true,
+      "message": "Поставщик деактивирован и скрыт из списка",
+      "error": null,
+      "timestamp": "22:37:38"
+    },
+    {
+      "name": "CRUD: Soft delete проверка",
+      "passed": true,
+      "message": "is_active = False, запись сохранена",
+      "error": null,
+      "timestamp": "22:37:38"
+    },
+    {
+      "name": "UI: PySide6 импорт",
+      "passed": true,
+      "message": "Библиотека PySide6 доступна",
+      "error": null,
+      "timestamp": "22:37:38"
+    },
+    {
+      "name": "UI: Тёмная тема (QSS)",
+      "passed": true,
+      "message": "Файл темы загружен (7782 символов)",
+      "error": null,
+      "timestamp": "22:37:38"
+    },
+    {
+      "name": "UI: Класс MainWindow",
+      "passed": true,
+      "message": "Класс импортирован",
+      "error": null,
+      "timestamp": "22:37:38"
+    },
+    {
+      "name": "UI: Создание MainWindow",
+      "passed": true,
+      "message": "Экземпляр окна создан",
+      "error": null,
+      "timestamp": "22:37:38"
+    },
+    {
+      "name": "Интеграция: Импорт CRUD-модуля",
+      "passed": true,
+      "message": "Ключевое слово 'supplier_crud' найдено",
+      "error": null,
+      "timestamp": "22:37:38"
+    },
+    {
+      "name": "Интеграция: Вызов создания поставщика",
+      "passed": true,
+      "message": "Ключевое слово 'create_supplier' найдено",
+      "error": null,
+      "timestamp": "22:37:38"
+    },
+    {
+      "name": "Интеграция: Вызов обновления поставщика",
+      "passed": true,
+      "message": "Ключевое слово 'update_supplier' найдено",
+      "error": null,
+      "timestamp": "22:37:38"
+    },
+    {
+      "name": "Интеграция: Вызов удаления поставщика",
+      "passed": true,
+      "message": "Ключевое слово 'delete_supplier' найдено",
+      "error": null,
+      "timestamp": "22:37:38"
+    },
+    {
+      "name": "Интеграция: Использование таблицы для отображения",
+      "passed": true,
+      "message": "Ключевое слово 'QTableView' найдено",
+      "error": null,
+      "timestamp": "22:37:38"
+    },
+    {
+      "name": "Интеграция: Обработка ошибок через диалоги",
+      "passed": true,
+      "message": "Ключевое слово 'QMessageBox' найдено",
+      "error": null,
+      "timestamp": "22:37:38"
+    },
+    {
+      "name": "Интеграция: Обработчики событий",
+      "passed": true,
+      "message": "Найдены подключения сигналов к слотам",
+      "error": null,
+      "timestamp": "22:37:38"
+    }
+  ],
+  "summary": {
+    "total": 61,
+    "passed": 60,
+    "failed": 1
+  }
+}

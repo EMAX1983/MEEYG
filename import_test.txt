@@ -1,0 +1,16 @@
+START
+1 config OK
+2 logger OK
+3 models OK
+4 engine OK
+5 session OK
+6 MainWindow OK
+7 PlaceholderPage OK
+8 ArchivePage OK
+9 DiscoveryPage OK
+10 ExportPage OK
+11 ParsingPage OK
+12 SuppliersPage OK
+13 BaseParser OK
+14 ParserEngine OK
+ALL OK

@@ -1,0 +1,1010 @@
+{
+  "title": "Межкомнатная дверь Глухая (ДГ) 500 Зефир 2000х800",
+  "title_html": "<h1 style=\"display: none;\">Межкомнатная дверь Глухая (ДГ) 500 Зефир 2000х800</h1>",
+  "price_elements": [
+    {
+      "tag": "span",
+      "class": [
+        "Product-description__item-price-value"
+      ],
+      "text": "12 800₽",
+      "attrs": {
+        "class": [
+          "Product-description__item-price-value"
+        ],
+        "itemprop": "price",
+        "content": "12800"
+      }
+    },
+    {
+      "tag": "span",
+      "class": [
+        "Product-description__item-price-value"
+      ],
+      "text": "9 910 ₽",
+      "attrs": {
+        "class": [
+          "Product-description__item-price-value"
+        ]
+      }
+    },
+    {
+      "tag": "li",
+      "class": [
+        "Product-description__molding-item"
+      ],
+      "text": "500Зефир9910.00₽В наличии:9999910₽",
+      "attrs": {
+        "class": [
+          "Product-description__molding-item"
+        ],
+        "data-max": "999",
+        "id": "polotno-elem",
+        "data-price": "\n                                9910.00                            ",
+        "data-id": "256069",
+        "data-selected": "true",
+        "data-quantity": "1",
+        "data-product-summary": "9910"
+      }
+    },
+    {
+      "tag": "li",
+      "class": [
+        "Product-description__molding-item",
+        "Product-description__molding-item--disabled"
+      ],
+      "text": "Добор 10*100*2070Зефир640₽В наличии:9990₽",
+      "attrs": {
+        "class": [
+          "Product-description__molding-item",
+          "Product-description__molding-item--disabled"
+        ],
+        "data-max": "999",
+        "data-id": "71040",
+        "data-price": "640",
+        "data-quantity": "0",
+        "data-product-summary": "0",
+        "data-selected": "false"
+      }
+    },
+    {
+      "tag": "li",
+      "class": [
+        "Product-description__molding-item",
+        "Product-description__molding-item--disabled"
+      ],
+      "text": "Добор 10*150*2070Зефир850₽В наличии:9990₽",
+      "attrs": {
+        "class": [
+          "Product-description__molding-item",
+          "Product-description__molding-item--disabled"
+        ],
+        "data-max": "999",
+        "data-id": "71041",
+        "data-price": "850",
+        "data-quantity": "0",
+        "data-product-summary": "0",
+        "data-selected": "false"
+      }
+    },
+    {
+      "tag": "li",
+      "class": [
+        "Product-description__molding-item",
+        "Product-description__molding-item--disabled"
+      ],
+      "text": "Добор 10*200*2070Зефир1170₽В наличии:9990₽",
+      "attrs": {
+        "class": [
+          "Product-description__molding-item",
+          "Product-description__molding-item--disabled"
+        ],
+        "data-max": "999",
+        "data-id": "71042",
+        "data-price": "1170",
+        "data-quantity": "0",
+        "data-product-summary": "0",
+        "data-selected": "false"
+      }
+    },
+    {
+      "tag": "li",
+      "class": [
+        "Product-description__molding-item",
+        "Product-description__molding-item--disabled"
+      ],
+      "text": "Короб 32*70*2100Зефир950₽В наличии:9990₽",
+      "attrs": {
+        "class": [
+          "Product-description__molding-item",
+          "Product-description__molding-item--disabled"
+        ],
+        "data-max": "999",
+        "data-id": "71043",
+        "data-price": "950",
+        "data-quantity": "0",
+        "data-product-summary": "0",
+        "data-selected": "false"
+      }
+    },
+    {
+      "tag": "li",
+      "class": [
+        "Product-description__molding-item",
+        "Product-description__molding-item--disabled"
+      ],
+      "text": "Наличник 10*80*2185Зефир540₽В наличии:9990₽",
+      "attrs": {
+        "class": [
+          "Product-description__molding-item",
+          "Product-description__molding-item--disabled"
+        ],
+        "data-max": "999",
+        "data-id": "71044",
+        "data-price": "540",
+        "data-quantity": "0",
+        "data-product-summary": "0",
+        "data-selected": "false"
+      }
+    },
+    {
+      "tag": "li",
+      "class": [
+        "Product-description__molding-item",
+        "Product-description__molding-item--disabled"
+      ],
+      "text": "Притворная планкаЗефир490₽В наличии:9990₽",
+      "attrs": {
+        "class": [
+          "Product-description__molding-item",
+          "Product-description__molding-item--disabled"
+        ],
+        "data-max": "999",
+        "data-id": "71045",
+        "data-price": "490",
+        "data-quantity": "0",
+        "data-product-summary": "0",
+        "data-selected": "false"
+      }
+    },
+    {
+      "tag": "li",
+      "class": [
+        "Product-description__molding-item",
+        "Product-description__molding-item--disabled"
+      ],
+      "text": "Плинтус МДФ 80х10х2070ЗефирСкачатьСкачать910₽В наличии:9990₽",
+      "attrs": {
+        "class": [
+          "Product-description__molding-item",
+          "Product-description__molding-item--disabled"
+        ],
+        "data-max": "999",
+        "data-id": "1062489",
+        "data-price": "910",
+        "data-quantity": "0",
+        "data-product-summary": "0",
+        "data-selected": "false"
+      }
+    },
+    {
+      "tag": "li",
+      "class": [
+        "popup-check-create__form-list-item",
+        "form-list-item",
+        "pagonaj-item"
+      ],
+      "text": "Глухая (ДГ)₽",
+      "attrs": {
+        "class": [
+          "popup-check-create__form-list-item",
+          "form-list-item",
+          "pagonaj-item"
+        ],
+        "data-price": "100",
+        "data-door": "",
+        "data-step": "100",
+        "data-price-of": "12800",
+        "data-door-type": "Глухая (ДГ)"
+      }
+    },
+    {
+      "tag": "li",
+      "class": [
+        "popup-check-create__form-list-item",
+        "form-list-item",
+        "pagonaj-item"
+      ],
+      "text": "Добор 10*100*2070₽",
+      "attrs": {
+        "class": [
+          "popup-check-create__form-list-item",
+          "form-list-item",
+          "pagonaj-item"
+        ],
+        "data-price": "100",
+        "data-step": "100",
+        "data-price-of": "640"
+      }
+    },
+    {
+      "tag": "li",
+      "class": [
+        "popup-check-create__form-list-item",
+        "form-list-item",
+        "pagonaj-item"
+      ],
+      "text": "Добор 10*150*2070₽",
+      "attrs": {
+        "class": [
+          "popup-check-create__form-list-item",
+          "form-list-item",
+          "pagonaj-item"
+        ],
+        "data-price": "100",
+        "data-step": "100",
+        "data-price-of": "850"
+      }
+    },
+    {
+      "tag": "li",
+      "class": [
+        "popup-check-create__form-list-item",
+        "form-list-item",
+        "pagonaj-item"
+      ],
+      "text": "Добор 10*200*2070₽",
+      "attrs": {
+        "class": [
+          "popup-check-create__form-list-item",
+          "form-list-item",
+          "pagonaj-item"
+        ],
+        "data-price": "100",
+        "data-step": "100",
+        "data-price-of": "1170"
+      }
+    },
+    {
+      "tag": "li",
+      "class": [
+        "popup-check-create__form-list-item",
+        "form-list-item",
+        "pagonaj-item"
+      ],
+      "text": "Короб 32*70*2100₽",
+      "attrs": {
+        "class": [
+          "popup-check-create__form-list-item",
+          "form-list-item",
+          "pagonaj-item"
+        ],
+        "data-price": "100",
+        "data-step": "100",
+        "data-price-of": "950"
+      }
+    },
+    {
+      "tag": "li",
+      "class": [
+        "popup-check-create__form-list-item",
+        "form-list-item",
+        "pagonaj-item"
+      ],
+      "text": "Наличник 10*80*2185₽",
+      "attrs": {
+        "class": [
+          "popup-check-create__form-list-item",
+          "form-list-item",
+          "pagonaj-item"
+        ],
+        "data-price": "100",
+        "data-step": "100",
+        "data-price-of": "540"
+      }
+    },
+    {
+      "tag": "li",
+      "class": [
+        "popup-check-create__form-list-item",
+        "form-list-item",
+        "pagonaj-item"
+      ],
+      "text": "Притворная планка₽",
+      "attrs": {
+        "class": [
+          "popup-check-create__form-list-item",
+          "form-list-item",
+          "pagonaj-item"
+        ],
+        "data-price": "100",
+        "data-step": "100",
+        "data-price-of": "490"
+      }
+    },
+    {
+      "tag": "li",
+      "class": [
+        "popup-check-create__form-list-item",
+        "form-list-item",
+        "pagonaj-item"
+      ],
+      "text": "Плинтус МДФ 80х10х2070₽",
+      "attrs": {
+        "class": [
+          "popup-check-create__form-list-item",
+          "form-list-item",
+          "pagonaj-item"
+        ],
+        "data-price": "100",
+        "data-step": "100",
+        "data-price-of": "910"
+      }
+    }
+  ],
+  "description_elements": [
+    {
+      "tag": "meta",
+      "class": [],
+      "text": ""
+    },
+    {
+      "tag": "div",
+      "class": [
+        "Product-description__subtitle"
+      ],
+      "text": "Зефир / 2000х800 / Глухая (ДГ)Межкомнатные двери с алюминиевой кромкой"
+    },
+    {
+      "tag": "div",
+      "class": [
+        "Description__content-list"
+      ],
+      "text": "ПокрытиеVinylТолщина полотна, мм36 ммТип погонажаТелескопический погонаж"
+    }
+  ],
+  "sku_elements": [],
+  "gallery_count": 2,
+  "total_images": 47,
+  "images": [
+    {
+      "src": "",
+      "srcset": "",
+      "alt": "Preview",
+      "width": null,
+      "height": null,
+      "class": [],
+      "parent_classes": [
+        "chat-image-modal__content",
+        "chat-image-modal",
+        "falling"
+      ]
+    },
+    {
+      "src": "https://mc.yandex.ru/watch/43506654",
+      "srcset": "",
+      "alt": "",
+      "width": null,
+      "height": null,
+      "class": [],
+      "parent_classes": [
+        "falling"
+      ]
+    },
+    {
+      "src": "/local/templates/tandoor/app/img/max-icon-new-mob.svg",
+      "srcset": "",
+      "alt": "max",
+      "width": null,
+      "height": null,
+      "class": [],
+      "parent_classes": [
+        "mobile-header__block-contact",
+        "mobile-header__whatsapp-link",
+        "mobile-header__whatsapp"
+      ]
+    },
+    {
+      "src": "/local/templates/tandoor/app/img/tg-icon-new-mob.svg",
+      "srcset": "",
+      "alt": "tg",
+      "width": null,
+      "height": null,
+      "class": [],
+      "parent_classes": [
+        "mobile-header__block-contact",
+        "mobile-header__whatsapp-link",
+        "mobile-header__whatsapp"
+      ]
+    },
+    {
+      "src": "/local/templates/tandoor/app/img/logo-svg.svg",
+      "srcset": "",
+      "alt": "",
+      "width": null,
+      "height": null,
+      "class": [
+        "Logo__image",
+        "Logo__image--size-s"
+      ],
+      "parent_classes": [
+        "header__bottom-part-wrapper",
+        "Logo",
+        "Container",
+        "Max-width"
+      ]
+    },
+    {
+      "src": "/cil_door.svg",
+      "srcset": "",
+      "alt": "Противопожарные двери",
+      "width": "20",
+      "height": "20",
+      "class": [
+        "Button__icon-svg",
+        "Button__icon-svg--left"
+      ],
+      "parent_classes": [
+        "Button",
+        "Button__icon",
+        "Button--theme-l-n",
+        "parent-menu",
+        "list-menu-catalog",
+        "Button--theme-l",
+        "catalog-header__list-item-product",
+        "Button--white-black"
+      ]
+    },
+    {
+      "src": "/cil_door.svg",
+      "srcset": "",
+      "alt": "Противопожарные двери",
+      "width": "20",
+      "height": "20",
+      "class": [
+        "Icon__svg"
+      ],
+      "parent_classes": [
+        "Icon--black",
+        "Icon__content",
+        "Icon",
+        "Icon--theme-m"
+      ]
+    },
+    {
+      "src": "/local/templates/tandoor/app/img/max-icon.svg",
+      "srcset": "",
+      "alt": "max-icon",
+      "width": null,
+      "height": null,
+      "class": [],
+      "parent_classes": [
+        "Social-network",
+        "Social-network__wrapper",
+        "Social-network--theme-xs",
+        "Social-network__icon",
+        "Social-network--lime"
+      ]
+    },
+    {
+      "src": "/local/templates/tandoor/app/img/tg-icon-new.svg",
+      "srcset": "",
+      "alt": "",
+      "width": null,
+      "height": null,
+      "class": [],
+      "parent_classes": [
+        "Social-network",
+        "Social-network__wrapper",
+        "Social-network--theme-xs",
+        "Social-network__icon",
+        "Social-network--lime"
+      ]
+    },
+    {
+      "src": "/upload/resize_cache/iblock/de1/cctliedof949jd0o7pkoof3yqi2fot4t/440_550_1/500_zefir__05_05_2026__04_47_30.jpg",
+      "srcset": "",
+      "alt": "",
+      "width": null,
+      "height": null,
+      "class": [
+        "Thumbnail-slide__swiper-image"
+      ],
+      "parent_classes": [
+        "Thumbnail-slide__inner-image",
+        "Thumbnail-slide__swiper-image"
+      ]
+    },
+    {
+      "src": "/local/templates/tandoor/components/bitrix/catalog.element/.default/img/present-icon.png",
+      "srcset": "",
+      "alt": "icon",
+      "width": null,
+      "height": null,
+      "class": [
+        "present-icon-img"
+      ],
+      "parent_classes": [
+        "Thumbnail-slide__swiper-link",
+        "present-icon",
+        "Thumbnail-slide__swiper-block-image"
+      ]
+    },
+    {
+      "src": "/local/templates/tandoor/components/bitrix/catalog.element/.default/img/present-icon-open.png",
+      "srcset": "",
+      "alt": "icon",
+      "width": null,
+      "height": null,
+      "class": [
+        "present-icon-open-img"
+      ],
+      "parent_classes": [
+        "Thumbnail-slide__swiper-link",
+        "present-icon",
+        "Thumbnail-slide__swiper-block-image"
+      ]
+    },
+    {
+      "src": "https://preview.rutube.ru/preview/ac31603fb094ccfcb919d128dee0e854.webp",
+      "srcset": "",
+      "alt": "",
+      "width": null,
+      "height": null,
+      "class": [
+        "Video-reviews__block-video-size"
+      ],
+      "parent_classes": [
+        "Video-reviews-btn",
+        "Video-reviews__block-video",
+        "Video-reviews",
+        "Thumbnail-slide__swiper-block-image"
+      ]
+    },
+    {
+      "src": "/upload/resize_cache/iblock/de1/cctliedof949jd0o7pkoof3yqi2fot4t/100_100_1/500_zefir__05_05_2026__04_47_30.jpg",
+      "srcset": "",
+      "alt": "",
+      "width": null,
+      "height": null,
+      "class": [
+        "Thumbnail-slide__swiper-image"
+      ],
+      "parent_classes": [
+        "Thumbnail-slide__swiper-conteiner",
+        "Thumbnail-slide__swiper-slide",
+        "Thumbnail-slide__swiper-wrapper",
+        "swiper-container-pointer-events",
+        "swiper-wrapper",
+        "swiper-container-horizontal",
+        "swiper-container-thumbs",
+        "Thumbnail-slide-swiper",
+        "Thumbnail-slide__swiper",
+        "swiper-container"
+      ]
+    },
+    {
+      "src": "https://preview.rutube.ru/preview/ac31603fb094ccfcb919d128dee0e854.webp",
+      "srcset": "",
+      "alt": "",
+      "width": null,
+      "height": null,
+      "class": [
+        "Video-reviews__block-video-size"
+      ],
+      "parent_classes": [
+        "Video-reviews-btn",
+        "Thumbnail-slide__swiper-slide",
+        "Video-reviews-btn-2",
+        "Video-reviews__block-video",
+        "Video-reviews",
+        "swiper-slide",
+        "swiper-slide-next"
+      ]
+    },
+    {
+      "src": "/upload/resize_cache/iblock/8e3/k3qz6klqz1jsonb2xbt0l46gjv57s09x/100_100_1/500.jpg",
+      "srcset": "",
+      "alt": "",
+      "width": null,
+      "height": null,
+      "class": [
+        "live-photos__img"
+      ],
+      "parent_classes": [
+        "swiper-container-pointer-events",
+        "swiper-wrapper",
+        "swiper-container-horizontal",
+        "live-photos__swiper",
+        "swiper-container",
+        "swiper-slide",
+        "swiper-slide-active",
+        "swiper-container-initialized"
+      ]
+    },
+    {
+      "src": "/upload/iblock/a98/vi42p5ovrmp88zrol541s4z9kb2410yd/белый_глянец.jpg",
+      "srcset": "",
+      "alt": "color",
+      "width": null,
+      "height": null,
+      "class": [
+        "Palette__btn-color-selection-img"
+      ],
+      "parent_classes": [
+        "Palette__item-color-selection-js",
+        "Palette__item-color-selection",
+        "Palette__item-color-selection--color",
+        "Palette__list-color-selection",
+        "Palette__btn-color-selection"
+      ]
+    },
+    {
+      "src": "/upload/iblock/ae8/xodrlwepuv4pjpfy2jbgugbssi7u2is0/Зефир.jpg",
+      "srcset": "",
+      "alt": "color",
+      "width": null,
+      "height": null,
+      "class": [
+        "Palette__btn-color-selection-img"
+      ],
+      "parent_classes": [
+        "Palette__item-color-selection-js",
+        "Palette__item-color-selection--active",
+        "Palette__item-color-selection",
+        "Palette__item-color-selection--color",
+        "Palette__list-color-selection",
+        "Palette__btn-color-selection"
+      ]
+    },
+    {
+      "src": "/upload/iblock/9d4/s6z31oa3xw47to05x3vdmx79r63ll5gm/рустик_натуральный.jpg",
+      "srcset": "",
+      "alt": "color",
+      "width": null,
+      "height": null,
+      "class": [
+        "Palette__btn-color-selection-img"
+      ],
+      "parent_classes": [
+        "Palette__item-color-selection-js",
+        "Palette__item-color-selection",
+        "Palette__item-color-selection--color",
+        "Palette__list-color-selection",
+        "Palette__btn-color-selection"
+      ]
+    },
+    {
+      "src": "/upload/iblock/24e/pcf4dzmiuajf9jzfbxp57eaat169lhy4/zefir__05_05_2026__04_47_34.png",
+      "srcset": "",
+      "alt": "комплектующие",
+      "width": null,
+      "height": null,
+      "class": [],
+      "parent_classes": [
+        "Product-description__molding-list",
+        "pogo",
+        "Product-description__molding-item",
+        "Product-description__molding-item--disabled",
+        "Product-description__molding-item-img"
+      ]
+    },
+    {
+      "src": "",
+      "srcset": "",
+      "alt": "",
+      "width": null,
+      "height": null,
+      "class": [],
+      "parent_classes": [
+        "Product-description__molding-item",
+        "Product-description__molding-item--disabled",
+        "image-zoom-overlay__content",
+        "image-zoom-overlay"
+      ]
+    },
+    {
+      "src": "/local/templates/tandoor/app/img/tg-icon-new.svg",
+      "srcset": "",
+      "alt": "tg-icon",
+      "width": null,
+      "height": null,
+      "class": [],
+      "parent_classes": [
+        "Social-network",
+        "Social-network__wrapper",
+        "Social-network--theme-xs",
+        "Social-network__icon",
+        "detail-card-tg",
+        "Social-network--lime"
+      ]
+    },
+    {
+      "src": "/local/templates/tandoor/app/img/max-icon.svg",
+      "srcset": "",
+      "alt": "max-icon",
+      "width": null,
+      "height": null,
+      "class": [],
+      "parent_classes": [
+        "Social-network",
+        "Social-network__wrapper",
+        "Social-network--theme-xs",
+        "Social-network__icon",
+        "Social-network--lime",
+        "detail-card-max"
+      ]
+    },
+    {
+      "src": "/local/templates/tandoor/app/img/wa-icon-new.svg",
+      "srcset": "",
+      "alt": "wa-icon",
+      "width": null,
+      "height": null,
+      "class": [],
+      "parent_classes": [
+        "Social-network",
+        "detail-card-wa",
+        "Social-network__wrapper",
+        "Social-network--theme-xs",
+        "Social-network__icon",
+        "Social-network--lime"
+      ]
+    },
+    {
+      "src": "/local/templates/tandoor/app/img/buns.png",
+      "srcset": "",
+      "alt": "",
+      "width": null,
+      "height": null,
+      "class": [],
+      "parent_classes": [
+        "buns__link",
+        "buns__wrapper",
+        "buns"
+      ]
+    },
+    {
+      "src": "/upload/iblock/6fd/xj3qveqk1y8krw9emjxjtlg0u5wv93o3/500_big.jpg",
+      "srcset": "",
+      "alt": "Белый глянец",
+      "width": null,
+      "height": null,
+      "class": [
+        "swiper-slide-img"
+      ],
+      "parent_classes": [
+        "swiper-slide-horizontal",
+        "swiper-wrapper",
+        "container-img",
+        "js-fitting-door",
+        "slider__item--active",
+        "swiper-slide",
+        "swiper-slide-active"
+      ]
+    },
+    {
+      "src": "/upload/iblock/dc6/hsg5w3dkj0cn5pssl3hwxi2zx3a18mht/500_зефир.jpg",
+      "srcset": "",
+      "alt": "Зефир",
+      "width": null,
+      "height": null,
+      "class": [
+        "swiper-slide-img"
+      ],
+      "parent_classes": [
+        "swiper-slide-horizontal",
+        "swiper-wrapper",
+        "container-img",
+        "js-fitting-door",
+        "swiper-slide",
+        "swiper-slide-next"
+      ]
+    },
+    {
+      "src": "/upload/iblock/ae1/yq2673226i5cc40t3qxgyc7bab9veqry/500_рустик_big.jpg",
+      "srcset": "",
+      "alt": "Рустик натуральный",
+      "width": null,
+      "height": null,
+      "class": [
+        "swiper-slide-img"
+      ],
+      "parent_classes": [
+        "swiper-slide-horizontal",
+        "swiper-wrapper",
+        "container-img",
+        "js-fitting-door",
+        "swiper-slide"
+      ]
+    },
+    {
+      "src": "/upload/resize_cache/iblock/4fa/9cmztrbc76noyjy0aim0bqu77clg1f5s/261_147_1/1.png",
+      "srcset": "",
+      "alt": "",
+      "width": null,
+      "height": null,
+      "class": [],
+      "parent_classes": [
+        "swiper-wrapper",
+        "js-fitting-interior",
+        "interior-slider__item--active",
+        "slider__image",
+        "swiper-slide",
+        "swiper-slide-active",
+        "swiper-slide-vertical"
+      ]
+    },
+    {
+      "src": "/upload/resize_cache/iblock/0d6/a2pfbflzi60g12orrao22qi6ri1t65gx/261_147_1/2.png",
+      "srcset": "",
+      "alt": "",
+      "width": null,
+      "height": null,
+      "class": [],
+      "parent_classes": [
+        "swiper-wrapper",
+        "js-fitting-interior",
+        "slider__image",
+        "swiper-slide",
+        "swiper-slide-next",
+        "swiper-slide-vertical"
+      ]
+    }
+  ],
+  "characteristics": {
+    "Покрытие": "Vinyl",
+    "Толщина полотна, мм": "36 мм",
+    "Тип погонажа": "Телескопический погонаж",
+    "Модель": "500",
+    "Размер, мм": "2000х800",
+    "Цвет": "Зефир",
+    "Вид двери": "Глухая (ДГ)",
+    "Производитель": "Tandoor",
+    "Гарантийный срок": "Срок гарантии 1 год",
+    "Условия эксплуатации:": "Избегайте грубого, механического воздействия на дверь, т.к. на ней могут появиться сколы, задиры, потертости и как следствие ухудшение внешнего вида. Не допускать контакт дверей с поверхностями или воздухом, температура которых выше 65 градусов, что может привести к оплавлению, деформации и отслоению покрытия межкомнатных дверей. Не допускается эксплуатация межкомнатных дверей ближе одного метра от отопительных приборов и других источников тепла. В процессе эксплуатации возможно изменение оттенка облицовочного материала под воздействием повседневного ультрафиолетового излучения. В случае загрязнения дверь можно протереть специальной чистящей салфеткой и средством для ухода за мебелью или увлажненной, а затем отжатой досуха фланелевой салфеткой. Не допускать воздействия влаги, а также попадания воды в зазоры между деталями, это может привести к повышению влажности древесины и, как следствие, к деформации деталей дверного полотна. При установке межкомнатных дверей в ванной комнате необходимо соблюдать и поддерживать эксплуатационный режим влажности, обеспечивая нормальную вентиляцию и полное проветривание ванной комнаты после ее использования по назначению. Не допускается применять для очистки дверей растворители и пятновыводители, а также абразивные чистящие средства.Полная информация",
+    "Вес, кг": "19,6",
+    "Замок в комплекте": "да",
+    "Тип замка": "магнитный сантехнический",
+    "Цвет замка": "Черный"
+  },
+  "sizes": [
+    {
+      "span_text": "60",
+      "radio_value": "/catalog/product/500-6-8-18-zefir-dg-2000-600/",
+      "label_title": "Ширина полотна, см"
+    },
+    {
+      "span_text": "70",
+      "radio_value": "/catalog/product/500-6-8-18-zefir-dg-2000-700/",
+      "label_title": "Ширина полотна, см"
+    },
+    {
+      "span_text": "80",
+      "radio_value": "/catalog/product/500-6-8-18-zefir-dg-2000-800/",
+      "label_title": "Ширина полотна, см"
+    },
+    {
+      "span_text": "90",
+      "radio_value": "/catalog/product/500-6-8-18-zefir-dg-2000-900/",
+      "label_title": "Ширина полотна, см"
+    }
+  ],
+  "door_types": [
+    {
+      "span_text": "ДГ",
+      "radio_value": "/catalog/product/500-pvkh-rustik-naturalnyy-dg-2000-800/",
+      "label_title": "",
+      "checked": true
+    },
+    {
+      "span_text": "ДЧ",
+      "radio_value": "",
+      "label_title": "",
+      "checked": false
+    },
+    {
+      "span_text": "ДО",
+      "radio_value": "",
+      "label_title": "",
+      "checked": false
+    }
+  ],
+  "colors": "Блок НЕ найден",
+  "directions": "Блок НЕ найден",
+  "molding": [
+    "500Зефир",
+    "Добор 10*100*2070Зефир",
+    "Добор 10*150*2070Зефир",
+    "Добор 10*200*2070Зефир",
+    "Короб 32*70*2100Зефир",
+    "Наличник 10*80*2185Зефир",
+    "Притворная планкаЗефир",
+    "Плинтус МДФ 80х10х2070Зефир"
+  ],
+  "all_specifications": [
+    {
+      "tag": "div",
+      "class": [
+        "Product-description__block-specification"
+      ],
+      "labels_count": 7
+    },
+    {
+      "tag": "form",
+      "class": [
+        "Product-description__form-specification"
+      ],
+      "labels_count": 7
+    },
+    {
+      "tag": "div",
+      "class": [
+        "Product-description__type-specification",
+        "Radio-btn"
+      ],
+      "labels_count": 3
+    },
+    {
+      "tag": "p",
+      "class": [
+        "Product-description__type-specification-text"
+      ],
+      "labels_count": 0
+    },
+    {
+      "tag": "div",
+      "class": [
+        "Product-description__size-specification",
+        "Radio-btn"
+      ],
+      "labels_count": 4
+    },
+    {
+      "tag": "p",
+      "class": [
+        "Product-description__size-specification-text"
+      ],
+      "labels_count": 0
+    }
+  ],
+  "og_tags": [
+    {
+      "property": "og:title",
+      "content": "Межкомнатная дверь Глухая (ДГ) 500 Зефир 2000х800 в Краснодаре по цене 12&nbsp;800 &#8381;"
+    },
+    {
+      "property": "og:description",
+      "content": "Межкомнатная дверь Глухая (ДГ) 500 Зефир 2000х800 ценой 12 800 ₽. Высокое качество, надежное обслуживание и быстрая доставка в Краснодаре. Не упустите возможнос..."
+    },
+    {
+      "property": "og:url",
+      "content": "https://tandoor.ru/catalog/product/500-6-8-18-zefir-dg-2000-800/"
+    },
+    {
+      "property": "og:type",
+      "content": "website"
+    },
+    {
+      "property": "og:site_name",
+      "content": "tandoor.ru"
+    },
+    {
+      "property": "og:image",
+      "content": "https://tandoor.ru/upload/iblock/1cd/4h05ysvxzpshvw5gdz42ee1ne2lw90s4/500_зефир.jpg"
+    },
+    {
+      "property": "og:image:type",
+      "content": "image/jpeg"
+    },
+    {
+      "property": "og:image:width",
+      "content": "1960"
+    },
+    {
+      "property": "og:image:height",
+      "content": "4180"
+    }
+  ],
+  "schema_org": []
+}
