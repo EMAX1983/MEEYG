@@ -115,7 +115,37 @@ def _clip_cell(s: str) -> str:
 
 def _collect_rows(ids: list[int]) -> list[list[str]]:
     rows: list[list[str]] = []
+    
+    # Сначала собираем ВСЕ уникальные имена атрибутов из всех товаров
+    all_attr_names: set[str] = set()
+    products_data: list[dict] = []
+    
     with get_session() as session:
+        # Первый проход: собираем все атрибуты
+        for pid in ids:
+            p = session.get(Product, pid)
+            if not p:
+                continue
+            
+            attrs = {
+                a.name: a.value
+                for a in session.query(ProductAttribute).filter_by(product_id=p.id).all()
+            }
+            
+            # Исключаем зарезервированные атрибуты из общего списка
+            reserved = {"Размер", "ParentSKU", "Производитель"}
+            for key in attrs.keys():
+                if key not in reserved and attrs[key] and attrs[key].strip():
+                    all_attr_names.add(key)
+        
+        # Сортируем атрибуты для стабильного порядка
+        sorted_attr_names = sorted(all_attr_names)
+        
+        # Ограничиваем количество атрибутов (максимум 10 пар в middle)
+        if len(sorted_attr_names) > 10:
+            sorted_attr_names = sorted_attr_names[:10]
+        
+        # Второй проход: формируем строки с единой структурой
         for pid in ids:
             p = session.get(Product, pid)
             if not p:
@@ -154,17 +184,16 @@ def _collect_rows(ids: list[int]) -> list[list[str]]:
 
             size_val = _field(attrs.get("Размер", ""))
 
-            # Собираем все атрибуты кроме зарезервированных, пропускаем пустые
-            reserved_middle = {"Размер", "ParentSKU", "Производитель"}
+            # Заполняем атрибуты в ЕДИНОМ порядке для всех товаров
             middle_pairs: list[tuple[str, str]] = []
-            for key in sorted(attrs.keys()):
-                if key in reserved_middle:
-                    continue
-                val = attrs[key]
-                if val and val.strip():  # Пропускаем пустые значения
-                    middle_pairs.append((key, _field(val)))
+            for attr_name in sorted_attr_names:
+                val = attrs.get(attr_name, "")
+                if val and val.strip():
+                    middle_pairs.append((attr_name, _field(val)))
+                else:
+                    middle_pairs.append(("", ""))  # Пустое значение, но позиция сохранена
             
-            # Заполняем до 10 пар пустыми значениями
+            # Добиваем до 10 пар пустыми, если атрибутов меньше
             while len(middle_pairs) < 10:
                 middle_pairs.append(("", ""))
 
