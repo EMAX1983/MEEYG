@@ -138,62 +138,67 @@ class TandoorPlaywrightParser(BaseParser):
         
         Основные контейнеры:
         1. <picture> с <source class="Thumbnail-slide__swiper-image" srcset="...">
-        2. <img class="Thumbnail-slide__swiper-image" itemprop="image" src="...">
+        2. <img class="Thumbnail-slide__swiper-image" itemprop="image" src="..." data-zoom-image="...">
         
-        Fallback: og:image, .Product-gallery__image и др.
+        Приоритет: data-zoom-image > srcset (WebP) > src (JPG)
+        Исключаем: миниатюры (100x100), видео-превью (rutube/youtube)
         """
         images = []
         seen = set()
         
-        # === Метод 1: srcset у <source class="Thumbnail-slide__swiper-image"> (лучшее качество) ===
+        # === Вспомогательная функция для добавления изображения ===
+        def add_image(url: str):
+            if not url or url.startswith("data:"):
+                return
+            # Фильтруем миниатюры (100x100) и видео-превью
+            if "/100_100_1/" in url or "preview.rutube.ru" in url or "img.youtube.com" in url:
+                return
+            full = urljoin(base_url, url)
+            if full not in seen:
+                images.append(full)
+                seen.add(full)
+        
+        # === Метод 1: data-zoom-image у <img class="Thumbnail-slide__swiper-image"> (максимальное качество) ===
+        # Это приоритетный источник - даёт изображение в наилучшем качестве
+        for img in soup.select("img.Thumbnail-slide__swiper-image[data-zoom-image]"):
+            zoom_src = img.get("data-zoom-image")
+            if zoom_src:
+                add_image(zoom_src)
+        
+        # === Метод 2: srcset у <source class="Thumbnail-slide__swiper-image"> (WebP, хорошее качество) ===
         for source in soup.select("source.Thumbnail-slide__swiper-image"):
             srcset = source.get("srcset", "")
             if srcset:
                 # srcset может содержать: "url 1x, url2 2x" или просто "url"
                 # Берём первый URL
                 first_url = srcset.split()[0] if srcset.strip() else ""
-                if first_url and first_url not in seen:
-                    full = urljoin(base_url, first_url)
-                    if not full.startswith("data:"):
-                        images.append(full)
-                        seen.add(full)
+                add_image(first_url)
         
-        # === Метод 2: src у <img class="Thumbnail-slide__swiper-image" itemprop="image"> ===
+        # === Метод 3: src у <img class="Thumbnail-slide__swiper-image"> (JPG, среднее качество) ===
         for img in soup.select("img.Thumbnail-slide__swiper-image"):
+            # Пропускаем, если уже взяли из data-zoom-image
+            if img.get("data-zoom-image"):
+                continue
             src = img.get("src") or img.get("data-src") or img.get("data-lazy-src")
-            if src and src not in seen:
-                full = urljoin(base_url, src)
-                if not full.startswith("data:"):
-                    images.append(full)
-                    seen.add(full)
+            add_image(src)
         
-        # === Метод 3: старый селектор (для обратной совместимости) ===
+        # === Метод 4: старый селектор (для обратной совместимости) ===
         for img in soup.select("img.swiper-slide-img"):
             src = img.get("src") or img.get("data-src") or img.get("data-lazy-src")
-            if src and src not in seen:
-                full = urljoin(base_url, src)
-                if not full.startswith("data:"):
-                    images.append(full)
-                    seen.add(full)
+            add_image(src)
         
         # === Fallback 1: og:image (main product image) ===
         if not images:
             og_img = soup.select_one('meta[property="og:image"]')
             if og_img and og_img.get("content"):
                 content = og_img["content"]
-                if content not in seen:
-                    images.append(content)
-                    seen.add(content)
+                add_image(content)
         
         # === Fallback 2: .Product-gallery__image ===
         if not images:
             for img in soup.select(".Product-gallery__image"):
                 src = img.get("src") or img.get("data-src")
-                if src and src not in seen:
-                    full = urljoin(base_url, src)
-                    if not full.startswith("data:"):
-                        images.append(full)
-                        seen.add(full)
+                add_image(src)
         
         return images
 
