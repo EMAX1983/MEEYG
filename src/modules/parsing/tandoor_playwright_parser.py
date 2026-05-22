@@ -136,69 +136,77 @@ class TandoorPlaywrightParser(BaseParser):
     def _extract_images(self, soup: BeautifulSoup, base_url: str) -> List[str]:
         """Извлекает изображения продукта с страницы.
         
-        Основные контейнеры:
-        1. <picture> с <source class="Thumbnail-slide__swiper-image" srcset="...">
-        2. <img class="Thumbnail-slide__swiper-image" itemprop="image" src="..." data-zoom-image="...">
+        Приоритеты:
+        1. data-zoom-image (максимальное качество)
+        2. srcset у <source class="Thumbnail-slide__swiper-image">
+        3. src у <img class="Thumbnail-slide__swiper-image">
         
-        Приоритет: data-zoom-image > srcset (WebP) > src (JPG)
-        Исключаем: миниатюры (100x100), видео-превью (rutube/youtube)
+        Фильтрует: миниатюры (100x100), видео-превью (rutube/youtube)
         """
         images = []
         seen = set()
         
-        # === Вспомогательная функция для добавления изображения ===
-        def add_image(url: str):
+        def is_valid_image(url: str) -> bool:
+            """Фильтрует миниатюры и видео-превью."""
             if not url or url.startswith("data:"):
-                return
-            # Фильтруем миниатюры (100x100) и видео-превью
-            if "/100_100_1/" in url or "preview.rutube.ru" in url or "img.youtube.com" in url:
-                return
+                return False
+            # Фильтруем миниатюры 100x100
+            if "100x100" in url or "/100_100/" in url:
+                return False
+            # Фильтруем видео-превью
+            if any(x in url.lower() for x in ["rutube", "youtube", "video"]):
+                return False
+            return True
+        
+        def add_image(url: str):
+            """Добавляет изображение с проверкой на дубликаты."""
             full = urljoin(base_url, url)
-            if full not in seen:
+            if is_valid_image(full) and full not in seen:
                 images.append(full)
                 seen.add(full)
         
-        # === Метод 1: data-zoom-image у <img class="Thumbnail-slide__swiper-image"> (максимальное качество) ===
-        # Это приоритетный источник - даёт изображение в наилучшем качестве
-        for img in soup.select("img.Thumbnail-slide__swiper-image[data-zoom-image]"):
-            zoom_src = img.get("data-zoom-image")
-            if zoom_src:
-                add_image(zoom_src)
+        # === Метод 1: data-zoom-image (приоритет - максимальное качество) ===
+        for img in soup.select("img[data-zoom-image]"):
+            zoom_url = img.get("data-zoom-image")
+            if zoom_url:
+                add_image(zoom_url)
         
-        # === Метод 2: srcset у <source class="Thumbnail-slide__swiper-image"> (WebP, хорошее качество) ===
+        # === Метод 2: srcset у <source class="Thumbnail-slide__swiper-image"> ===
         for source in soup.select("source.Thumbnail-slide__swiper-image"):
             srcset = source.get("srcset", "")
             if srcset:
-                # srcset может содержать: "url 1x, url2 2x" или просто "url"
-                # Берём первый URL
+                # Берём первый URL из srcset (обычно это лучшее качество)
                 first_url = srcset.split()[0] if srcset.strip() else ""
-                add_image(first_url)
+                if first_url:
+                    add_image(first_url)
         
-        # === Метод 3: src у <img class="Thumbnail-slide__swiper-image"> (JPG, среднее качество) ===
+        # === Метод 3: src у <img class="Thumbnail-slide__swiper-image"> ===
         for img in soup.select("img.Thumbnail-slide__swiper-image"):
             # Пропускаем, если уже взяли из data-zoom-image
             if img.get("data-zoom-image"):
                 continue
             src = img.get("src") or img.get("data-src") or img.get("data-lazy-src")
-            add_image(src)
+            if src:
+                add_image(src)
         
         # === Метод 4: старый селектор (для обратной совместимости) ===
         for img in soup.select("img.swiper-slide-img"):
             src = img.get("src") or img.get("data-src") or img.get("data-lazy-src")
-            add_image(src)
+            if src:
+                add_image(src)
         
-        # === Fallback 1: og:image (main product image) ===
+        # === Fallback 1: og:image ===
         if not images:
             og_img = soup.select_one('meta[property="og:image"]')
             if og_img and og_img.get("content"):
-                content = og_img["content"]
-                add_image(content)
+                add_image(og_img["content"])
         
         # === Fallback 2: .Product-gallery__image ===
         if not images:
             for img in soup.select(".Product-gallery__image"):
                 src = img.get("src") or img.get("data-src")
-                add_image(src)
+                if src:
+                    add_image(src)
         
         return images
 
