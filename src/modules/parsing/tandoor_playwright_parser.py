@@ -102,6 +102,41 @@ class TandoorPlaywrightParser(BaseParser):
         return f"{supplier_name} {collection_name} {counter:06d}"
 
     # --- Специфичные для Tandoor методы эмуляции поведения ---
+    async def _scroll_product_gallery(self, page: Page):
+        """Прокручивает слайдер фотографий товара для загрузки всех изображений.
+        
+        Слайдер на tandoor.ru использует ленивую загрузку - фотографии подгружаются
+        только при переключении слайда. Нужно прокликать все слайды.
+        """
+        try:
+            # Ждём появления слайдера
+            await page.wait_for_selector(".Thumbnail-slide__swiper-image", timeout=5000)
+            
+            # Находим все кнопки навигации слайдера или просто кликаем по стрелкам
+            next_button = page.locator(".swiper-button-next, .Thumbnail-slider__button_next").first
+            
+            # Делаем несколько кликов для прокрутки всех слайдов (обычно 3-10 фото)
+            for i in range(10):  # Максимум 10 слайдов
+                try:
+                    # Проверяем, существует ли кнопка и активна ли она
+                    button_state = await next_button.get_attribute("class")
+                    if button_state and "swiper-button-disabled" in button_state:
+                        break  # Кнопка неактивна - дошли до конца
+                    
+                    # Кликаем по кнопке "вперёд"
+                    await next_button.click(timeout=2000)
+                    await asyncio.sleep(0.3)  # Ждём загрузки слайда
+                    
+                except Exception:
+                    # Кнопка не найдена или неактивна - выходим
+                    break
+            
+            # Дополнительная пауза для загрузки всех изображений
+            await asyncio.sleep(0.5)
+            
+        except Exception as e:
+            self._log(f"  ⚠️ Не удалось прокрутить слайдер: {e}")
+
     async def _human_like_scroll(self, page: Page):
         """Эмулирует человеческую прокрутку страницы."""
         total_height = await page.evaluate("document.body.scrollHeight")
@@ -933,6 +968,11 @@ class TandoorPlaywrightParser(BaseParser):
         category_id = kwargs.get("category_id")
         try:
             await page.goto(url, wait_until="networkidle", timeout=45000)
+            
+            # === Прокручиваем слайдер фотографий для загрузки всех изображений ===
+            await self._scroll_product_gallery(page)
+            
+            # Затем прокручиваем страницу вниз для остального контента
             await self._human_like_scroll(page)
             await asyncio.sleep(random.uniform(0.5, 1.5))
 
