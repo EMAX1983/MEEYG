@@ -176,8 +176,36 @@ def _collect_rows(ids: list[int]) -> list[list[str]]:
                 stock_status = "outofstock"
                 availability = "нет в наличии"
 
+            # Извлекаем ВСЕ фото товара (родителя или вариации)
             urls = p.get_image_urls()
-            images = _field(urls[0] if urls else "")
+            
+            # Для WP All Import: все фото через запятую
+            # Первое фото - главное, остальные - дополнительные
+            if urls:
+                # Убираем дубли и пустые значения
+                unique_urls = list(dict.fromkeys(urls))
+                images = _field(",".join(unique_urls))
+            else:
+                # Если у товара нет фото, пробуем взять у родителя
+                parental_raw = attrs.get("ParentSKU", "") or "-"
+                if parental_raw != "-":
+                    # Ищем родителя по SKU
+                    parent_sku_clean = _clean_sku(parental_raw, supplier_name)
+                    parent_product = session.query(Product).filter(
+                        Product.external_sku.like(f"%{parent_sku_clean}%"),
+                        Product.parent_product_id.is_(None)
+                    ).first()
+                    if parent_product:
+                        parent_urls = parent_product.get_image_urls()
+                        if parent_urls:
+                            unique_parent_urls = list(dict.fromkeys(parent_urls))
+                            images = _field(",".join(unique_parent_urls))
+                        else:
+                            images = ""
+                    else:
+                        images = ""
+                else:
+                    images = ""
 
             collections = p.get_compatible_collections()
             manufacturer = _field(collections[0] if collections else supplier_name)
