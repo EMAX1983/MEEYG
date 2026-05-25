@@ -1,15 +1,1 @@
-```gitignore
-# Python
-__pycache__/
-*.pyc
-*.pyo
-*.pyd
-
-# Logs
-*.log
-
-# Environment variables
-.env
-.env.local
-*.env.*
-```
+Nothing needs to be added to .gitignore since the only change is adding a Python source file (.py) which should not be ignored.
