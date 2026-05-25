@@ -1,0 +1,70 @@
+"""Проверка изображений в Products и ArchiveItems."""
+from src.database.session import engine
+from sqlalchemy import text
+from sqlalchemy.orm import Session
+from src.database.models import ArchiveItem, Product
+import json
+
+session = Session(engine)
+
+# Check Products with images
+products_with_images = session.query(Product).filter(
+    Product.image_urls.isnot(None),
+    Product.image_urls != '[]',
+    Product.image_urls != ''
+).limit(10).all()
+
+print(f"=== Products with images (showing 10) ===")
+print(f"Total products in DB: {session.query(Product).count()}")
+print(f"Products with images: {len(products_with_images)}")
+
+for p in products_with_images:
+    try:
+        imgs = json.loads(p.image_urls) if isinstance(p.image_urls, str) else p.image_urls
+        img_count = len(imgs) if isinstance(imgs, list) else 0
+        first_urls = imgs[:2] if isinstance(imgs, list) else []
+    except:
+        img_count = 0
+        first_urls = []
+    
+    category_name = p.category.name if p.category else "N/A"
+    is_parent = "PARENT" if p.parent_product_id is None else "CHILD"
+    print(f"  [{is_parent}] id={p.id}, title={p.title[:50]}, category={category_name}, images={img_count}")
+    for url in first_urls:
+        print(f"    URL: {url[:100]}")
+
+# Check Archive structure
+print(f"\n=== Archive Snapshot info ===")
+from src.database.models import ArchiveSnapshot
+snapshots = session.query(ArchiveSnapshot).all()
+for snap in snapshots:
+    items_count = session.query(ArchiveItem).filter(ArchiveItem.snapshot_id == snap.id).count()
+    items_with_imgs = session.query(ArchiveItem).filter(
+        ArchiveItem.snapshot_id == snap.id,
+        ArchiveItem.image_urls.isnot(None),
+        ArchiveItem.image_urls != '[]'
+    ).count()
+    print(f"  Snapshot #{snap.id}: '{snap.name}', supplier_id={snap.supplier_id}, total_items={items_count}, with_images={items_with_imgs}")
+
+session.close()
+
+print("\n=== Checking CSV files in data/exports ===")
+import os
+exports_dir = "data/exports"
+if os.path.exists(exports_dir):
+    csv_files = [f for f in os.listdir(exports_dir) if f.endswith('.csv')]
+    print(f"  CSV files found: {len(csv_files)}")
+    for f in csv_files[:5]:
+        fpath = os.path.join(exports_dir, f)
+        fsize = os.path.getsize(fpath)
+        print(f"    {f} ({fsize / 1024:.1f} KB)")
+
+print("\n=== Checking merged_images directory ===")
+merged_dir = "data/exports/merged_images"
+if os.path.exists(merged_dir):
+    files = os.listdir(merged_dir)
+    print(f"  Files in merged_images: {len(files)}")
+    for f in files[:5]:
+        fpath = os.path.join(merged_dir, f)
+        fsize = os.path.getsize(fpath)
+        print(f"    {f} ({fsize / 1024:.1f} KB)")

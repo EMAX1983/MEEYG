@@ -6,10 +6,14 @@
 - Простыe товары (simple)
 - Корректное сопоставление Parent → child через SKU
 - Экспорт из ArchiveItem (со всеми заполненными полями)
+- Объединение фото входных дверей (лицо + изнанка)
 """
 
+import asyncio
 import csv
 import gc
+import hashlib
+import io
 import json
 import logging
 import os
@@ -17,7 +21,10 @@ import time
 from dataclasses import dataclass
 from datetime import datetime
 from pathlib import Path
-from typing import Any, Callable, Optional
+from typing import Any, Callable, List, Optional
+
+import aiohttp
+from PIL import Image
 
 from src.core.config import settings
 from src.core.logger import logger
@@ -497,6 +504,99 @@ class ExportEngine:
                 pass
         return ""
 
+    # ====== СКЛЕЙКА ИЗОБРАЖЕНИЙ ДЛЯ ВХОДНЫХ ДВЕРЕЙ ======
+
+    def _is_input_door(self, item: dict) -> bool:
+        """Проверяет, является ли товар входной дверью."""
+        title = (item.get("title") or "").lower()
+        category = (item.get("category_name") or "").lower()
+        purpose = (item.get("attributes_raw", {}).get("Назначение") or "").lower()
+        return "входн" in title or "входн" in category or "входн" in purpose or "input door" in category
+
+    async def _download_image_bytes(self, session: aiohttp.ClientSession, url: str, timeout: int = 30) -> Optional[bytes]:
+        """Скачивает изображение по URL."""
+        try:
+            async with session.get(url, timeout=aiohttp.ClientTimeout(total=timeout)) as response:
+                if response.status == 200:
+                    return await response.read()
+        except Exception as e:
+            self._log(f"[WARN] Не удалось скачать изображение {url}: {e}")
+        return None
+
+    async def _merge_two_images_horizontally(self, img1_bytes: bytes, img2_bytes: bytes, gap: int = 10) -> bytes:
+        """Объединяет два изображения горизонтально с отступом."""
+        img1 = Image.open(io.BytesIO(img1_bytes)).convert("RGBA")
+        img2 = Image.open(io.BytesIO(img2_bytes)).convert("RGBA")
+        
+        h1, w1 = img1.size[1], img1.size[0]
+        h2, w2 = img2.size[1], img2.size[0]
+        max_h = max(h1, h2)
+        
+        if h1 != max_h:
+            ratio = max_h / h1
+            img1 = img1.resize((int(w1 * ratio), max_h), Image.Resampling.LANCZOS)
+            w1 = img1.size[0]
+        
+        if h2 != max_h:
+            ratio = max_h / h2
+            img2 = img2.resize((int(w2 * ratio), max_h), Image.Resampling.LANCZOS)
+            w2 = img2.size[0]
+        
+        total_width = w1 + gap + w2
+        combined = Image.new("RGBA", (total_width, max_h), (255, 255, 255, 255))
+        combined.paste(img1, (0, 0))
+        combined.paste(img2, (w1 + gap, 0))
+        
+        combined_rgb = combined.convert("RGB")
+        buffer = io.BytesIO()
+        combined_rgb.save(buffer, format="JPEG", quality=90)
+        return buffer.getvalue()
+
+    async def _merge_door_images_async(self, items: list[dict]) -> list[dict]:
+        """Для входных дверей объединяет первые два изображения в одно."""
+        merged_dir = self.config.output_dir / "merged_images"
+        merged_dir.mkdir(parents=True, exist_ok=True)
+        
+        merged_count = 0
+        
+        async with aiohttp.ClientSession() as session:
+            for item in items:
+                if not self._is_input_door(item):
+                    continue
+                
+                images = item.get("image_urls", [])
+                if not isinstance(images, list) or len(images) < 2:
+                    continue
+                
+                # Скачиваем первые два изображения
+                img1_bytes = await self._download_image_bytes(session, images[0])
+                img2_bytes = await self._download_image_bytes(session, images[1])
+                
+                if img1_bytes and img2_bytes:
+                    try:
+                        merged_bytes = await self._merge_two_images_horizontally(img1_bytes, img2_bytes)
+                        
+                        hash_name = hashlib.md5(images[0].encode()).hexdigest()[:12]
+                        filename = f"door_merged_{hash_name}.jpg"
+                        filepath = merged_dir / filename
+                        
+                        filepath.write_bytes(merged_bytes)
+                        abs_path = str(filepath.resolve())
+                        
+                        # Обновляем item: первое изображение - локальный путь
+                        item["image_urls"] = [abs_path] + images[2:]
+                        merged_count += 1
+                        self._log(f"[INFO] Объединены изображения для '{item.get('title', 'N/A')}': {filename}")
+                    except Exception as e:
+                        self._log(f"[WARN] Не удалось объединить изображения для '{item.get('title', 'N/A')}': {e}")
+        
+        self._log(f"[INFO] Всего объединено изображений: {merged_count}")
+        return items
+
+    def _preprocess_images(self, items: list[dict]) -> list[dict]:
+        """Синхронная обёртка для предобработки изображений."""
+        return asyncio.run(self._merge_door_images_async(items))
+
     # ====== ЭКСПОРТ ======
 
     def _export_to_csv(self, rows: list[list]) -> str:
@@ -546,6 +646,13 @@ class ExportEngine:
 
         if self._cancelled:
             return {"success": False, "error": "cancelled", "stats": self.stats}
+
+        # Предобработка изображений (склейка для входных дверей)
+        has_input_doors = any(self._is_input_door(item) for item in items)
+        if has_input_doors:
+            self._log("Найдены входные двери — запуск объединения изображений (лицо + изнанка)...")
+            items = self._preprocess_images(items)
+            self._log("Обработка изображений завершена")
 
         rows = self._transform_to_csv_rows(items)
         if not rows:

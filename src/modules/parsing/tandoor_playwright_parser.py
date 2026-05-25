@@ -1498,11 +1498,27 @@ class TandoorPlaywrightParser(BaseParser):
                     await self._pause_event.wait()
                     self._log(f"[{i + 1}/{len(urls)}] Парсинг: {url}")
                     
-                    # Передаём category_id через kwargs в _parse_product_page
-                    cat_id = url_to_category.get(url)
-                    products_data = await self._parse_product_page(page, url, category_id=cat_id)
-                    if products_data:
-                        await self._save_to_database(session, products_data)
+                    # Проверяем, является ли URL страницей категории
+                    if self._is_category_url(url):
+                        cat_id = url_to_category.get(url)
+                        product_urls = await self._parse_category_page(page, url, cat_id)
+                        self._log(f"  Найдено {len(product_urls)} товаров в категории")
+                        
+                        # Парсим каждый найденный продукт
+                        for j, prod_url in enumerate(product_urls):
+                            if self._cancelled:
+                                break
+                            await self._pause_event.wait()
+                            self._log(f"  [{j + 1}/{len(product_urls)}] Парсинг товара: {prod_url}")
+                            products_data = await self._parse_product_page(page, prod_url, category_id=cat_id)
+                            if products_data:
+                                await self._save_to_database(session, products_data)
+                    else:
+                        # Это URL продукта
+                        cat_id = url_to_category.get(url)
+                        products_data = await self._parse_product_page(page, url, category_id=cat_id)
+                        if products_data:
+                            await self._save_to_database(session, products_data)
                     self.progress_callback(i + 1, len(urls), url)
             finally:
                 await page.close()
@@ -1511,3 +1527,65 @@ class TandoorPlaywrightParser(BaseParser):
 
         self.stats["end_time"] = datetime.now(timezone.utc)
         return self.stats
+
+    def _is_category_url(self, url: str) -> bool:
+        """Проверяет, является ли URL страницей категории (список товаров)."""
+        category_indicators = [
+            "/catalog/",
+        ]
+        # Если URL заканчивается на / и содержит /catalog/ - это вероятно страница категории
+        is_catalog = "/catalog/" in url
+        # Проверяем, что это не конкретный товар
+        is_product = "/product/" in url or ".html" in url or url.rstrip("/").endswith("/") and len(url.split("/")) > 5
+        # Страницы категорий обычно: /catalog/category-name/ без /product/ в path
+        if is_catalog and "/product/" not in url:
+            return True
+        return False
+
+    async def _parse_category_page(self, page, url: str, category_id: int) -> List[str]:
+        """Парсит страницу категории и возвращает список URL продуктов."""
+        product_urls = []
+        try:
+            await page.goto(url, wait_until="networkidle", timeout=45000)
+            await asyncio.sleep(random.uniform(1, 3))
+            
+            # Ищем ссылки на продукты в каталоге
+            # Tandoor использует разные классы для карточек товаров в категории
+            links = await page.query_selector_all("a")
+            for link in links:
+                href = await link.get_attribute("href")
+                if href and "/catalog/product/" in href:
+                    # Нормализуем URL
+                    clean = href.split("#")[0].split("?")[0].rstrip("/")
+                    if clean not in product_urls:
+                        product_urls.append(clean)
+            
+            # Также пробуем пагинацию - ищем все страницы
+            pagination_selectors = [
+                ".Pagination a",
+                ".pagination a",
+                "nav a[href*='/catalog/']",
+            ]
+            for selector in pagination_selectors:
+                pagination_links = await page.query_selector_all(selector)
+                for plink in pagination_links:
+                    phref = await plink.get_attribute("href")
+                    if phref and "/catalog/" in phref and "/page/" in phref:
+                        self._log(f"  Переход на страницу пагинации: {phref}")
+                        try:
+                            await page.goto(phref, wait_until="networkidle", timeout=30000)
+                            await asyncio.sleep(random.uniform(1, 2))
+                            more_links = await page.query_selector_all("a")
+                            for link in more_links:
+                                href = await link.get_attribute("href")
+                                if href and "/catalog/product/" in href:
+                                    clean = href.split("#")[0].split("?")[0].rstrip("/")
+                                    if clean not in product_urls:
+                                        product_urls.append(clean)
+                        except Exception as e:
+                            self._log(f"  Ошибка при пагинации {phref}: {e}")
+                    
+        except Exception as e:
+            self._log(f"  Ошибка при парсинге категории {url}: {e}")
+        
+        return product_urls

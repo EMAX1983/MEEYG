@@ -14,6 +14,7 @@ from playwright_stealth import Stealth
 PARENT_TITLE_RE = re.compile(r"\s*/.*")
 
 class ParserEngine(BaseParser):
+    """Legacy parser kept for backward compatibility. Use TandoorPlaywrightParser instead."""
     def __init__(self, base_url: str, **kwargs: Any):
         super().__init__(**kwargs)
         self.base_url = base_url
