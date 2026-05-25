@@ -2,13 +2,17 @@
 WP All Import Exporter Module
 Унифицированный экспорт данных для импорта в WordPress (WooCommerce).
 Обрабатывает нормализацию атрибутов, изображений и генерацию SKU.
+Включает функцию объединения двух фото входных дверей (лицо + изнанка).
 """
 
 import csv
 import os
+import io
+import aiohttp
 from datetime import datetime
 from typing import List, Dict, Any, Optional
 from collections import OrderedDict
+from PIL import Image
 
 # --- КОНФИГУРАЦИЯ НОРМАЛИЗАЦИИ ---
 
@@ -152,10 +156,12 @@ VALUE_NORMALIZATION = {
 class WpAllImportExporter:
     """
     Экспортер данных в формат CSV, совместимый с WP All Import.
+    Включает функцию объединения фото входных дверей (лицо + изнанка).
     """
 
-    def __init__(self, output_dir: str = "data/exports"):
+    def __init__(self, output_dir: str = "data/exports", debug_mode: bool = False):
         self.output_dir = output_dir
+        self.debug_mode = debug_mode
         os.makedirs(output_dir, exist_ok=True)
         
         # Кэш нормализованных имен атрибутов для скорости
@@ -259,10 +265,117 @@ class WpAllImportExporter:
         
         return f"{b_code}_{c_code}_{s_code}_{col_code}"
 
-    def _process_images(self, images: List[str]) -> tuple[str, str]:
+    async def _download_image_bytes(self, session: aiohttp.ClientSession, url: str) -> Optional[bytes]:
+        """Скачивает изображение по URL и возвращает байты."""
+        try:
+            async with session.get(url, timeout=aiohttp.ClientTimeout(total=30)) as response:
+                if response.status == 200:
+                    return await response.read()
+        except Exception as e:
+            print(f"[WARN] Не удалось скачать изображение {url}: {e}")
+        return None
+    
+    async def _merge_two_images_horizontally(self, img1_bytes: bytes, img2_bytes: bytes, gap: int = 10) -> bytes:
+        """
+        Объединяет два изображения горизонтально с отступом.
+        Возвращает байты JPEG изображения.
+        """
+        try:
+            img1 = Image.open(io.BytesIO(img1_bytes)).convert("RGBA")
+            img2 = Image.open(io.BytesIO(img2_bytes)).convert("RGBA")
+            
+            # Приводим к одной высоте (по максимальному)
+            h1, w1 = img1.size[1], img1.size[0]
+            h2, w2 = img2.size[1], img2.size[0]
+            max_h = max(h1, h2)
+            
+            # Масштабируем пропорционально если высоты разные
+            if h1 != max_h:
+                ratio = max_h / h1
+                new_w1 = int(w1 * ratio)
+                img1 = img1.resize((new_w1, max_h), Image.Resampling.LANCZOS)
+                w1 = new_w1
+            
+            if h2 != max_h:
+                ratio = max_h / h2
+                new_w2 = int(w2 * ratio)
+                img2 = img2.resize((new_w2, max_h), Image.Resampling.LANCZOS)
+                w2 = new_w2
+            
+            # Создаем холст: ширина1 + отступ + ширина2, высота = max_h
+            total_width = w1 + gap + w2
+            combined = Image.new("RGBA", (total_width, max_h), (255, 255, 255, 255))
+            
+            # Вставляем изображения
+            combined.paste(img1, (0, 0))
+            combined.paste(img2, (w1 + gap, 0))
+            
+            # Конвертируем в RGB для JPEG
+            combined_rgb = combined.convert("RGB")
+            
+            # Сохраняем в буфер
+            buffer = io.BytesIO()
+            combined_rgb.save(buffer, format="JPEG", quality=90)
+            return buffer.getvalue()
+            
+        except Exception as e:
+            print(f"[ERROR] Ошибка при объединении изображений: {e}")
+            # Если ошибка - возвращаем первое изображение
+            return img1_bytes
+    
+    async def _merge_door_images(self, images: List[str], output_dir: str = "data/exports/merged_images") -> List[str]:
+        """
+        Для входных дверей объединяет первые два изображения (лицо + изнанка) в одно.
+        Сохраняет объединенное изображение локально и возвращает новый список с одним фото.
+        """
+        if len(images) < 2:
+            return images
+        
+        # Создаем директорию для сохраненных изображений
+        os.makedirs(output_dir, exist_ok=True)
+        
+        async with aiohttp.ClientSession() as session:
+            # Скачиваем первые два изображения
+            img1_bytes = await self._download_image_bytes(session, images[0])
+            img2_bytes = await self._download_image_bytes(session, images[1])
+            
+            if img1_bytes and img2_bytes:
+                try:
+                    merged_bytes = await self._merge_two_images_horizontally(img1_bytes, img2_bytes)
+                    
+                    # Генерируем уникальное имя файла на основе URL первого изображения
+                    import hashlib
+                    hash_name = hashlib.md5(images[0].encode()).hexdigest()[:12]
+                    filename = f"door_merged_{hash_name}.jpg"
+                    filepath = os.path.join(output_dir, filename)
+                    
+                    # Сохраняем файл
+                    with open(filepath, "wb") as f:
+                        f.write(merged_bytes)
+                    
+                    # Возвращаем абсолютный путь или относительный для импорта
+                    # WP All Import может импортировать локальные файлы по пути
+                    abs_path = os.path.abspath(filepath)
+                    
+                    print(f"[INFO] Изображения объединены: {abs_path}")
+                    
+                    # Возвращаем список с одним объединенным изображением + остальные из галереи
+                    remaining_images = images[2:] if len(images) > 2 else []
+                    return [abs_path] + remaining_images
+                    
+                except Exception as e:
+                    print(f"[WARN] Не удалось объединить изображения: {e}")
+        
+        # Если не получилось - возвращаем оригинальный список
+        return images
+    
+    def _process_images(self, images: List[str], is_input_door: bool = False) -> tuple[str, str]:
         """
         Разделяет список изображений на главное и галерею.
+        Для входных дверей сначала объединяет первые два фото (лицо + изнанка).
         Возвращает (featured_image, gallery_images_csv).
+        
+        Примечание: Асинхронное объединение должно вызываться до этой функции.
         """
         if not images:
             return "", ""
@@ -334,6 +447,36 @@ class WpAllImportExporter:
                 
         return row
 
+    async def _preprocess_products(self, products: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
+        """
+        Предварительная обработка продуктов перед экспортом.
+        Для входных дверей объединяет первые два изображения.
+        """
+        processed = []
+        
+        for prod in products:
+            prod_copy = prod.copy()
+            images = prod_copy.get("images", [])
+            
+            # Определяем, является ли товар входной дверью
+            is_input_door = False
+            title = prod_copy.get("title", "").lower()
+            category = prod_copy.get("category_path", "").lower()
+            
+            if "входн" in title or "входн" in category or "input door" in category:
+                is_input_door = True
+            
+            # Если это входная дверь и есть 2+ фото - объединяем
+            if is_input_door and len(images) >= 2:
+                merged_images = await self._merge_door_images(images)
+                prod_copy["images"] = merged_images
+                if self.debug_mode:
+                    print(f"[INFO] Товар '{prod_copy.get('title')}' - изображения объединены")
+            
+            processed.append(prod_copy)
+        
+        return processed
+    
     def export(self, products: List[Dict[str, Any]], filename: Optional[str] = None) -> str:
         """
         Основной метод экспорта.
@@ -374,3 +517,14 @@ class WpAllImportExporter:
         print(f"   Колонки: {len(WP_COLUMNS)}")
         
         return filepath
+    
+    async def export_async(self, products: List[Dict[str, Any]], filename: Optional[str] = None) -> str:
+        """
+        Асинхронная версия экспорта с предобработкой изображений.
+        Объединяет фото входных дверей перед экспортом.
+        """
+        # Предварительная обработка: объединение фото для входных дверей
+        processed_products = await self._preprocess_products(products)
+        
+        # Затем стандартный экспорт
+        return self.export(processed_products, filename)
